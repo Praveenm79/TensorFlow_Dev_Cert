@@ -108,14 +108,16 @@ history_1 = model_0.fit(train_data_10_percent,
 # Save the fine-tuned model
 model_0.save('fine_tuned_model_with_20epochs.h5')
 
+print('Before opening the last 30 layers \n')
 for layer_number, layer in enumerate(base_model.layers):
-    print('Before opening the last 30 layers \n', layer_number, layer.name, layer.trainable)
+    print( layer_number, layer.name, layer.trainable)
 # Open another 10 more layers from the base model and retrain
 for layer in base_model.layers[-30:]:
     layer.trainable = True
 
+print('After opening the last 30 layers \n')
 for layer_number, layer in enumerate(base_model.layers):
-    print('After opening the last 30 layers \n', layer_number, layer.name, layer.trainable)
+    print(layer_number, layer.name, layer.trainable)
 
 # Compile the model with decreased learning rate as new layers were opened
 model_0.compile(optimizer=keras.optimizers.Adam(learning_rate=0.00001),
